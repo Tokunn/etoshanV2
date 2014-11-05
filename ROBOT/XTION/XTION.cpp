@@ -40,6 +40,7 @@ class DepthSensor
             int centerX = videoMode.getResolutionX() / 2;
             int centerY = videoMode.getResolutionY() / 2;
             int centerIndex = ( centerY * videoMode.getResolutionX()) + centerX;
+            int depthIndex = videoMode.getResolutionX() * videoMode.getResolutionY();
 
             unsigned short* depth = (unsigned short*)depthFrame.getData();
 
@@ -48,9 +49,9 @@ class DepthSensor
             cv::putText( depthImage, ss.str(), cv::Point( 0, 50 ), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar( 255 ) );
 
             unsigned short min = 10000;
-            for (int i = 0; i < 320; i++) {
+            for (int i = 0; i < depthIndex; i++) {
                 if (depth[i] == 0) {
-                    std::cout << depth[i] << '\n';
+                    //std::cout << depth[i] << '\n';
                 }
                 else if (min > depth[i]) {
                     min = depth[i];
