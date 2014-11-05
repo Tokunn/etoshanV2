@@ -21,37 +21,22 @@ class DepthSensor
         void update() {
             openni::VideoFrameRef depthFrame;
             depthStream.readFrame( &depthFrame );
-            depthImage = showDepthStream( depthFrame );
-            cv::imshow( "Depth Stream", depthImage );
+            showDepthStream( depthFrame );
         }
 
     private:
 
-        cv::Mat showDepthStream( const openni::VideoFrameRef& depthFrame ) {
-            cv::Mat depthImage = cv::Mat( depthFrame.getHeight(), depthFrame.getWidth(), CV_16UC1, (unsigned short*)depthFrame.getData() );
-            depthImage.convertTo( depthImage, CV_8U, 255.0 / 10000 );
-            showCenterDistance( depthImage, depthFrame );
-            return depthImage;
-        }
-
-        void showCenterDistance( cv::Mat& depthImage, const openni::VideoFrameRef& depthFrame ) {
+        void showDepthStream( const openni::VideoFrameRef& depthFrame ) {
             openni::VideoMode videoMode = depthStream.getVideoMode();
 
-            int centerX = videoMode.getResolutionX() / 2;
-            int centerY = videoMode.getResolutionY() / 2;
-            int centerIndex = ( centerY * videoMode.getResolutionX()) + centerX;
             int depthIndex = videoMode.getResolutionX() * videoMode.getResolutionY();
 
             unsigned short* depth = (unsigned short*)depthFrame.getData();
 
-            std::stringstream ss;
-            ss << "Center Point :" << depth[centerIndex];
-            cv::putText( depthImage, ss.str(), cv::Point( 0, 50 ), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar( 255 ) );
-
             unsigned short min = 10000;
+
             for (int i = 0; i < depthIndex; i++) {
                 if (depth[i] == 0) {
-                    //std::cout << depth[i] << '\n';
                 }
                 else if (min > depth[i]) {
                     min = depth[i];
@@ -63,7 +48,6 @@ class DepthSensor
         openni::Device device;
         openni::VideoStream depthStream;
 
-        cv::Mat depthImage;
 };
 
 int main( int argc, const char * argv[] ) {
@@ -71,13 +55,8 @@ int main( int argc, const char * argv[] ) {
         openni::OpenNI::initialize();
         DepthSensor sensor;
         sensor.initialize();
-
         while( 1 ) {
             sensor.update();
-            int key = cv::waitKey( 10 );
-            if ( key == 'q' ) {
-                break;
-            }
         }
     }
     catch ( std::exception& ) {
