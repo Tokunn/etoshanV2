@@ -68,8 +68,6 @@ class Xtion
         Pose pose;
         int countPose;
         int beforeRecoNum;
-        bool skeletonFlag;
-        int skeletonCount;
 };
 
 
@@ -85,7 +83,7 @@ Xtion::Xtion()
 
     debugImage = cv::Mat( cv::Size( 300, 100 ), CV_8UC3 );
     debugBrack = cv::imread( "Images/DEBUG.png" );
-    timeImage = cv::Mat( cv::Size( 267, 35 ), CV_8UC3 );
+    timeImage = cv::Mat( cv::Size( 230, 30 ), CV_8UC3 );
 
     beforeRecoNum = 20;
     countPose = 0;
@@ -93,9 +91,6 @@ Xtion::Xtion()
     beforePose = NONE;
     afterimagePose = NONE;
     poseCheckFlag = true;
-
-    skeletonFlag = false;
-    skeletonCount = 0;
 }
 
 
@@ -119,46 +114,13 @@ void Xtion::update()
 /*---- Print Window ----*/
 void Xtion::printWindow()
 {
-    cv::Mat baseImage = cv::Mat( cv::Size( 1849, 1040 ), CV_8UC3 );
+    cv::Mat baseImage = cv::Mat( cv::Size( 1366, 768 ), CV_8UC3 );
     cv::Mat backImage;
-    if ( countPose >= 40 ) {
+    if ( countPose >= 60 ) {
         backImage = cv::imread( "Images/Background3.png" );
-        debugImage = cv::imread( "Images/Annai.png" );
     }
     else {
         backImage = cv::imread( "Images/Background.png" );
-        if ( countPose == 0 ) {
-            debugImage = cv::imread( "Images/Taiki.png" );
-        }
-        else {
-            debugImage = cv::imread( "Images/Ninsiki.png" );
-        }
-    }
-
-    if ( skeletonFlag ) {   // if checked joint
-        skeletonCount = 0;
-    }
-    else {
-        skeletonCount++;
-        if ( skeletonCount >= 200 ) {
-            skeletonCount = 0;
-        }
-
-        if ( skeletonCount < 40 ) {
-            direcImage = cv::imread( "Images/Setumei.png" );
-        }
-        else if ( skeletonCount < 80 ) {
-            direcImage = cv::imread( "Images/Setumei1.png" );
-        }
-        else if ( skeletonCount < 120 ) {
-            direcImage = cv::imread( "Images/Setumei2.png" );
-        }
-        else if ( skeletonCount < 160 ) {
-            direcImage = cv::imread( "Images/Setumei3.png" );
-        }
-        else if ( skeletonCount < 200 ) {
-            direcImage = cv::imread( "Images/Setumei4.png" );
-        }
     }
 
     std::ostringstream timeName;    // Make file name
@@ -172,10 +134,10 @@ void Xtion::printWindow()
     timeImage = cv::imread( fname );
 
     cv::Mat RoiBack( baseImage, cv::Rect( 0, 0, backImage.cols, backImage.rows ) );
-    cv::Mat RoiTime( baseImage, cv::Rect( 1440, 405, timeImage.cols, timeImage.rows ) );
-    cv::Mat RoiDebug( baseImage, cv::Rect( 1350, 143, debugImage.cols, debugImage.rows ) );
-    cv::Mat RoiDirec( baseImage, cv::Rect( 80, 70, direcImage.cols, direcImage.rows ) );
-    cv::Mat RoiCamera( baseImage, cv::Rect( 1400, 650, cameraImage.cols, cameraImage.rows ) );
+    cv::Mat RoiTime( baseImage, cv::Rect( 1065, 295, timeImage.cols, timeImage.rows ) );
+    cv::Mat RoiDebug( baseImage, cv::Rect( 980, 110, debugImage.cols, debugImage.rows ) );
+    cv::Mat RoiDirec( baseImage, cv::Rect( 70, 65, direcImage.cols, direcImage.rows ) );
+    cv::Mat RoiCamera( baseImage, cv::Rect( 980, 460, cameraImage.cols, cameraImage.rows ) );
 
     backImage.copyTo( RoiBack );
     timeImage.copyTo( RoiTime );
@@ -186,10 +148,9 @@ void Xtion::printWindow()
     const char windowName[] = "Etoshan  -NITOyC-  by Tokunn";
     cv::namedWindow( windowName, CV_WINDOW_AUTOSIZE );
     cv::imshow( windowName, baseImage );
-    cvMoveWindow( windowName, 0, 0 );
+    cvMoveWindow( windowName, 80, 50 );
 
     //cv::imshow( "Depth Frame", depthImage );        // #=# DEBUG #=#
-    std::cout << skeletonFlag << '\t' << skeletonCount << '\n';
 }
 
 
@@ -227,7 +188,6 @@ void Xtion::makeDebugStream( nite::UserTrackerFrameRef& userFrame )
     }
 
     if ( users.getSize() == 0 ) {
-        skeletonFlag = false;
     }
     putDebugText( users );
 }
@@ -301,9 +261,9 @@ void Xtion::putDebugText( const nite::Array<nite::UserData>& users )
         std::stringstream recoNum, posename;
         recoNum << "RecoNum: " << users.getSize();
         posename << "Pose: " << poseName[ pose ];
-        //cv::putText( debugImage, recoNum.str(), cv::Point( 5, 30 ), cv::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar( 0, 255, 0 ), 2 );
-        //cv::putText( debugImage, posename.str(), cv::Point( 5, 85 ), cv::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar( 0, 255, 0 ), 2 );
-        //std::cout << recoNum.str() << '\t' << posename.str() << '\n';   // #=# DEBUG #=#
+        cv::putText( debugImage, recoNum.str(), cv::Point( 5, 30 ), cv::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar( 0, 255, 0 ), 2 );
+        cv::putText( debugImage, posename.str(), cv::Point( 5, 85 ), cv::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar( 0, 255, 0 ), 2 );
+        std::cout << recoNum.str() << '\t' << posename.str() << '\n';   // #=# DEBUG #=#
     }
     beforeRecoNum = users.getSize();
 }
@@ -358,7 +318,6 @@ void Xtion::showSkeleton( nite::UserTracker& userTracker, const nite::UserData& 
         if ( joint.getPositionConfidence() < 0.7f ) {
             continue;
         }
-        skeletonFlag = true;
         const nite::Point3f& position = joint.getPosition();
         float x = 0, y = 0;
         userTracker.convertJointCoordinatesToDepth( position.x, position.y, position.z, &x, &y );
@@ -366,7 +325,6 @@ void Xtion::showSkeleton( nite::UserTracker& userTracker, const nite::UserData& 
     }
 
     pose = checkPose( skeelton );   // Check Pose
-
     afterimagePose = beforePose;
     if ( poseCheckFlag ) {
         if ( pose != NONE && pose == beforePose ) {
@@ -376,11 +334,11 @@ void Xtion::showSkeleton( nite::UserTracker& userTracker, const nite::UserData& 
             countPose = 0;
             beforePose = pose;
         }
-        if ( countPose > 40 ) {
+        if ( countPose > 60 ) {
             countPose = 0;
             beforePose = NONE;
         }
-        else if ( countPose == 40 ) {
+        else if ( countPose == 60 ) {
             poseCheckFlag = false;
         }
     }
