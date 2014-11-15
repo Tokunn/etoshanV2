@@ -7,6 +7,7 @@ INC_DIRS = \
     ../../Include \
     ../../../External/GL \
     $(OPENNI2_INCLUDE) \
+    $(NITE2_INCLUDE)
 
 SRC_FILES = *.cpp
 
@@ -18,13 +19,13 @@ else
 	USED_LIBS += glut GL
 endif
 
-LIB_DIRS += $(OPENNI2_REDIST)
+LIB_DIRS += $(OPENNI2_REDIST) $(NITE2_REDIST64)
 
-USED_LIBS += OpenNI2  opencv_core opencv_highgui opencv_imgproc
+USED_LIBS += OpenNI2 NiTE2  opencv_core opencv_highgui opencv_imgproc
 
-EXE_NAME = ROBOT_XTION.o
+EXE_NAME = PC_t_XTION_XTION.o
 
-CFLAGS += -Wall -g
+CFLAGS += -Wall
 
 
 ifndef OPENNI2_INCLUDE
@@ -33,12 +34,12 @@ else ifndef OPENNI2_REDIST
     $(error OPENNI2_REDIST is not defined. Please define it or 'source' the OpenNIDevEnvironment file from the installation)
 endif
 
-INC_DIRS += $(OPENNI2_INCLUDE)
+INC_DIRS += $(OPENNI2_INCLUDE) $(NITE2_INCLUDE)
 
 include CommonCppMakefile
 
 .PHONY: copy-redist
 copy-redist:
-	cp -R $(OPENNI2_REDIST)/* $(OUT_DIR)
+	cp -R $(OPENNI2_REDIST)/* $(NITE2_REDIST64)/* ~/Program/UI/Images/ $(OUT_DIR)
 
 $(OUTPUT_FILE): copy-redist

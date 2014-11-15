@@ -1,7 +1,0 @@
-avra ***.asm
-sudo avrdude -c avrispmkII -p m88 -P usb -U flash:w:*.hex:a
-
-
-avr-gcc -mmcu=atmega328p main.c
-avr-objcopy -O ihex a.out a.hex
-sudo avrdude -c avrispmkII -p m328p -P usb -U flash:w:a.hex:a
