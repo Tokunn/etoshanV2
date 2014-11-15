@@ -23,7 +23,7 @@ LIB_DIRS += $(OPENNI2_REDIST) $(NITE2_REDIST64)
 
 USED_LIBS += OpenNI2 NiTE2  opencv_core opencv_highgui opencv_imgproc
 
-EXE_NAME = PC_t_XTION_XTION.o
+EXE_NAME = PC_t_XTION.o
 
 CFLAGS += -Wall
 
