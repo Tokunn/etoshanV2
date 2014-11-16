@@ -3,6 +3,7 @@
 
 import serial
 import time
+import sys
 
 
 def main():
@@ -11,10 +12,15 @@ def main():
 
     xbee = serial.Serial(xbeeport, 9600) 
 
+    sys.stdout.write("\'")
     while True:
-        #mes = xbee.readline()
+
         mes = xbee.read()
-        print(mes)
+
+        if (mes != '\0'):
+            sys.stdout.write(mes)
+        else:
+            sys.stdout.write("\'\n\'")
 
 
 

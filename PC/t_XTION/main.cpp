@@ -28,9 +28,25 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+// Serial
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <unistd.h>
+
+#define SERIAL_PORT "/dev/ttyUSB0"
 
 
 enum Pose{ NONE=0, MAJOKO=1, OBAKE=2, KAIDAN=3, NEKO=4, KING=5, BRUNA=6 };
+const char pose_char[][7] = { "NONE__",
+                        "MAJOKO",
+                        "OBAKE_",
+                        "KAIDAN",
+                        "NEKO__",
+                        "KING__",
+                        "BRUNA_"  };
 
 
 /******* Xtion Class *******/
@@ -52,6 +68,7 @@ class Xtion
         void putDebugText( const nite::Array<nite::UserData>& users );
         Pose checkPose( const nite::Skeleton& skeelton );
         void printWindow();
+        void sendSerial( Pose pose);
     private:
         openni::Device device;  // Using device
         openni::VideoStream colorStream;
@@ -113,6 +130,7 @@ void Xtion::update()
     //showUsersStream( userFrame );      // #=# DEBUG #=#
 
     printWindow();
+    sendSerial( pose );
 }
 
 
@@ -190,6 +208,21 @@ void Xtion::printWindow()
 
     //cv::imshow( "Depth Frame", depthImage );        // #=# DEBUG #=#
     std::cout << skeletonFlag << '\t' << skeletonCount << '\n';
+}
+
+
+/*---- Send Serial at XBee ----*/
+void Xtion::sendSerial( Pose pose )
+{
+    int fd;
+    int return_write;
+    char buf[7] = "HELLO!";
+    fd = open(SERIAL_PORT, O_RDWR);
+    return_write = write(fd, pose_char[pose], sizeof(pose_char[0]));
+    if (return_write < 0) {
+        std::cout << "Send serial Error\n";
+    }
+    close(fd);
 }
 
 

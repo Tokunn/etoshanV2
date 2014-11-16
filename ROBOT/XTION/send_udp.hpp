@@ -1,5 +1,5 @@
-#ifndef HEAD_SEND_UDP
-#define HEAD_SEND_UDP
+#ifndef INCLUDE_SEND_UDP
+#define INCLUDE_SEND_UDP
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -18,4 +18,4 @@ class SendUdp
 };
 
 
-#endif // HEAD_SEND_UDP
+#endif // INCLUDE_SEND_UDP

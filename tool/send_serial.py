@@ -21,7 +21,7 @@ def main():
 
     while True:
         cmd = raw_input("Please type command :")
-        if (len(cmd) > 10):
+        if (len(cmd) > 100):
             print("Bye")
             break
         ard.send_serial_cmd(cmd)
