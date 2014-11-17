@@ -56,6 +56,7 @@ class Xtion
         Xtion();
         void update();
         bool poseCheckFlag;
+        bool sendSerialFlag;
     private:
         void convColorStream( openni::VideoFrameRef& colorFrame );
         void makeDebugStream( nite::UserTrackerFrameRef& userFrame );
@@ -113,6 +114,7 @@ Xtion::Xtion()
 
     skeletonFlag = false;
     skeletonCount = 0;
+    sendSerialFlag = false;
 }
 
 
@@ -130,8 +132,9 @@ void Xtion::update()
     //showUsersStream( userFrame );      // #=# DEBUG #=#
 
     printWindow();
-    if (countPose == 40) {
+    if ((countPose == 40) && (sendSerialFlag == false)) {
         sendSerial( pose );
+        sendSerialFlag = true;
     }
 }
 
@@ -516,6 +519,7 @@ int main()
             int Key = cv::waitKey( 10 );
             if ( Key == 32 ) {      // Space Key
                 app.poseCheckFlag = true;
+                app.sendSerialFlag = false;
             }
             else if ( Key == 27 ) { // Escape Key
                 break;
