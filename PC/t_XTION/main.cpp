@@ -130,7 +130,9 @@ void Xtion::update()
     //showUsersStream( userFrame );      // #=# DEBUG #=#
 
     printWindow();
-    sendSerial( pose );
+    if (countPose == 40) {
+        sendSerial( pose );
+    }
 }
 
 
