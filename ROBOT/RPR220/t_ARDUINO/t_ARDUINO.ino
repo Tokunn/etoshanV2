@@ -1,18 +1,29 @@
+#include "sensor_RPR220.hpp"
+
+
 int sensor_pin[6] = {0, 1, 2, 3, 4, 5};
+int LED_sw1_pin = 7;
+int LED_sw2_pin = 8;
+int sw1_pin = 10;
+int sw2_pin = 11;
+
 
 void setup()
 {
+    pinMode(LED_sw1_pin, OUTPUT);
+    pinMode(LED_sw2_pin, OUTPUT);
+    pinMode(sw1_pin, INPUT);
+    pinMode(sw2_pin, INPUT);
+
     Serial.begin(9600);
+    RPR220 sensors;
 }
 
 void loop()
 {
-    int sensor_value[6];
-    for (int i = 0; i < 6; i++) {
-        sensor_value[i] = analogRead(sensor_pin[i]);
-        Serial.print(sensor_value[i]);
-        Serial.print(' ');
-    }
-    Serial.println(' ');
+    int sensor_value;
+    sensors.set_threshold(sw1_pin, sw2_pin);
+    sensor_value = sensors.get_binary();
+    Serial.println(sensor_value);
     delay(100);
 }
