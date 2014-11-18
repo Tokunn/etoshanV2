@@ -1,5 +1,4 @@
-#define PIN_SENSOR1 1
-
+int sensor_pin[6] = {0, 1, 2, 3, 4, 5};
 
 void setup()
 {
@@ -8,6 +7,12 @@ void setup()
 
 void loop()
 {
-    int sensor1_value = analogRead(PIN_SENSOR1);
-    Serial.println(sensor1_value);
+    int sensor_value[6];
+    for (int i = 0; i < 6; i++) {
+        sensor_value[i] = analogRead(sensor_pin[i]);
+        Serial.print(sensor_value[i]);
+        Serial.print(' ');
+    }
+    Serial.println(' ');
+    delay(100);
 }
