@@ -27,7 +27,7 @@ void loop()
 {
     int sensor_value;
     RPR220 sensors;
-    sensors.set_threshold(sw1_pin, sw2_pin);
+    sensors.set_threshold(digitalRead(sw1_pin), digitalRead(sw2_pin));
     sensor_value = sensors.get_binary();
     //Serial.println(sensor_value);
     delay(100);
