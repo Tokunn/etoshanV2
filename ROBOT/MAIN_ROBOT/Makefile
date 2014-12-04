@@ -1,4 +1,4 @@
-CROSS := arm-linux-gnueabi
+CROSS := ~/Documents/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf
 
 ifneq ($(CROSS),)
 	CROSS_PREFIX	:= $(CROSS)-
