@@ -1,8 +1,24 @@
 #include <iostream>
+#include <stdlib.h>
+
+#include "get_destination.hpp"
+#include "get_sensor_value.hpp"
+#include "do_linetrace.hpp"
+#include "get_frontobtacle.hpp"
+#include "send_tire_speed_value.hpp"
 
 
 int main()
 {
-    std::cout << "HELLO Makefile\n";
-    return 0;
+    Destination destination;
+    // TODO sensor_value
+    LineTrace linetrace;
+    FrontObtacle frontobtacle;
+    // TODO tire_speed
+
+    while(true) {
+    }
+
+    return EXIT_SUCCESS;
+
 }
