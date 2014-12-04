@@ -10,7 +10,8 @@ class SendUdp
 {
     public:
         void initialize();
-        void send();
+        void stop_send();
+        void stat_send();
 
     private:
         int sock;

@@ -21,7 +21,11 @@ int main( int argc, const char * argv[] ) {
             std::cout << min_distance << '\n';
             if (min_distance < 500) {
                 std::cout << "[!!] STOP\n";
-                udp.send();
+                udp.stop_send();
+            }
+            else {
+                std::cout << "STAT\n";
+                udp.stat_send();
             }
         }
     }

@@ -16,8 +16,13 @@ void SendUdp::initialize() {
 }
 
 
-void SendUdp::send() {
-    sendto(sock, "HELLO", 5, 0, (struct sockaddr *)&addr, sizeof(addr));
+void SendUdp::stop_send() {
+    sendto(sock, "STOP", 4, 0, (struct sockaddr *)&addr, sizeof(addr));
+    close(sock);
+}
 
+
+void SendUdp::stat_send() {
+    sendto(sock, "STAT", 4, 0, (struct sockaddr *)&addr, sizeof(addr));
     close(sock);
 }
