@@ -8,13 +8,13 @@ CXX		 = $(CROSS_PREFIX)g++
 CXXFLAGS = -Wall -Wextra -O2 -g -MMD -MP
 LDFLAGS	 =
 LIBS	 =
-INCLUDE	 = -I./Include
-TARGET 	 = ./bin/$(shell basename `readlink -f .`)
+INCLUDE	 = -I../include
+TARGET 	 = ../bin/$(shell basename `readlink -f ..`)
 OBJDIR	 = ./obj
 ifeq "$(strip $(OBJDIR))" ""
 	OBJDIR = .
 endif
-SOURCES	 = $(wildcard *.cpp) $(wildcard ./Include/*.cpp)
+SOURCES	 = $(wildcard *.cpp)
 OBJECTS	 = $(addprefix $(OBJDIR)/,$(SOURCES:.cpp=.o))
 DEPENDS	 = $(OBJECTS:.o=.d)
 
@@ -28,6 +28,6 @@ $(OBJDIR)/%.o:%.cpp
 all: clean $(TARGET)
 
 clean:
-	$(RM) -r $(OBJECTS) $(DEPENDS) $(TARGET) $(TARGET) `readlink -f $(OBJDIR)`
+	$(RM) -r $(OBJECTS) $(DEPENDS) $(TARGET) `readlink -f $(OBJDIR)`
 
 -include $(DEPENDS)
