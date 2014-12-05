@@ -14,7 +14,7 @@ class LineTrace
         int comp_linetrace_lib(int sensor_value);
 
         int sensor_value;
-        int linetrace_lib[2][10];
+        int linetrace_lib[2][10]; // TODO [2][10] change
 };
 
 #endif // HEAD_DO_LINETRACE

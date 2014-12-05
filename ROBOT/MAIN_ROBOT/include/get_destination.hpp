@@ -15,6 +15,10 @@
 #define SERIAL_PORT "/dev/ttyUSB0"
 
 
+// Pose number
+enum Pose{ NONE=0, MAJOKO=1, OBAKE=2, KAIDAN=3, NEKO=4, KING=5, BRUNA=6 };
+
+
 /*===== Destination =====*/
 class Destination
 {
@@ -22,16 +26,15 @@ class Destination
         Destination();
         int get_destination_count();
         int get_all_count();
-        int get_home_count();
 
     private:
         void recive_serial(char* char_destination);
         int comv_destination_char2int(char* char_destination);
 
         int fd;
-        char buf[100];
         int all_count;
-        char char_destination[10];
+        char char_destination[7];
+        char pose_char[7][8];
 };
 
 
