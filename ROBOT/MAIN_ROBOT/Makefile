@@ -1,22 +1,33 @@
-CROSS := ~/Documents/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf
+CROSS   := ~/Program/cross_gcc/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/arm-linux-gnueabihf
 
 ifneq ($(CROSS),)
 	CROSS_PREFIX	:= $(CROSS)-
 endif
 
-CXX = $(CROSS_PREFIX)g++
-CXXFLAGS = -Wall -Wextra -O2
-LDFLAGS =
+CXX		 = $(CROSS_PREFIX)g++
+CXXFLAGS = -Wall -Wextra -O2 -g -MMD -MP
+LDFLAGS	 =
+LIBS	 =
+INCLUDE	 = -I./Include
+TARGET 	 = ./bin/$(shell basename `readlink -f .`)
+OBJDIR	 = ./obj
+ifeq "$(strip $(OBJDIR))" ""
+	OBJDIR = .
+endif
+SOURCES	 = $(wildcard *.cpp) $(wildcard ./Include/*.cpp)
+OBJECTS	 = $(addprefix $(OBJDIR)/,$(SOURCES:.cpp=.o))
+DEPENDS	 = $(OBJECTS:.o=.d)
 
-TARGET = MAIN_ROBOT
+$(TARGET): $(OBJECTS) $(LIBS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
-all: $(TARGET)
+$(OBJDIR)/%.o:%.cpp
+	@[ -d $(OBJDIR) ] || mkdir -p $(OBJDIR)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
-MAIN_ROBOT: main.o
-	$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
+all: clean $(TARGET)
 
 clean:
-	$(RM) *~ *.o $(TARGET)
+	$(RM) -r $(OBJECTS) $(DEPENDS) $(TARGET) $(TARGET) `readlink -f $(OBJDIR)`
 
-%.o:%cpp
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+-include $(DEPENDS)
