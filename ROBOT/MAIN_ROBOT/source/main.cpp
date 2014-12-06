@@ -8,8 +8,8 @@ int main()
 {
     Destination destination;
 
-    while(true) {
-        int now_position = 0;
+    while (true) {
+        destination.get_position();
     }
 
     return EXIT_SUCCESS;

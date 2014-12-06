@@ -34,7 +34,7 @@ $(BIN_DIR):
 clean:
 	$(RM) -r $(OBJECTS) $(DEPENDS) $(TARGET) $(BIN_DIR) `readlink -f $(OBJDIR)`
 
-upload:
+upload: $(BIN_DIR) $(TARGET)
 	#ssh-keygen -R 172.16.12.131
 	scp $(TARGET) root@172.16.12.131:/root/
 

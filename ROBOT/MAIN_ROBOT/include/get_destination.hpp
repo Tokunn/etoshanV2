@@ -11,6 +11,10 @@
 #include <unistd.h>
 
 
+// String
+#include <string>
+
+
 // Serial Config
 #include "../include/serial_config.hpp"
 
@@ -28,13 +32,15 @@ class Destination
         int get_all_count();
 
     private:
-        void recive_serial(char* char_destination);
-        int comv_destination_char2int(char* char_destination);
+        void recive_serial(std::string* string_destination);
+        int comv_destination_string2int(
+                const std::string* pose_string,
+                const std::string* string_destination);
 
         int fd;
         int all_count;
-        char char_destination[7];
-        char pose_char[7][8];
+        std::string pose_string[7];
+        std::string string_destination;
 };
 
 
