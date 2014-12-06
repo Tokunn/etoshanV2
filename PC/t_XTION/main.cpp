@@ -222,7 +222,7 @@ void Xtion::sendSerial( Pose pose )
     int fd;
     int return_write;
     fd = open(SERIAL_PORT, O_RDWR);
-    return_write = write(fd, pose_char[pose], sizeof(pose_char[0]));
+    return_write = write(fd, pose_char[pose], 7);
     if (return_write < 0) {
         std::cout << "Send serial Error\n";
     }
