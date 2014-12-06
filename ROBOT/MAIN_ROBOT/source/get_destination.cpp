@@ -43,20 +43,14 @@ void Destination::recive_serial(std::string* string_destination) {
 
 /*----- comv_destination_string2int() -----*/
 int Destination::comv_destination_string2int(
-        const std::string* pose_string,
-        const std::string* string_destination) {
+        const std::string* pose_string, const std::string* string_destination) {
     std::cout << ">'" << *string_destination << "'<" << '\n';     // #=# DEBUG #=#
-    const char *char_const_destination = string_destination->c_str();
-    char char_destination[8];
-    for (int i = 0; i < 7; i++) {
-        char_destination[i] = char_const_destination[i];
-    }
-    char_destination[7] = '\0';
-    unsigned int size = sizeof(pose_string) / sizeof(int);
-    for (unsigned int i = 0; i < size; i++) {
+    const char *char_destination = string_destination->c_str();
+    //unsigned int size = sizeof(pose_string) / sizeof(int);
+    for (unsigned int i = 0; i < 7; i++) {
         const char *pose_char = pose_string[i].c_str();
-        if (strcmp(char_destination, pose_char) == 0) {
-            std::cout << "[[Find]]: " << pose_string[i] << '\n';
+        if (char_destination[3] == pose_char[3]) {
+            std::cout << "\t\t[[Find]]: " << pose_string[i] << " Char is: " << char_destination[3] << " and: " << pose_char[3] << '\n';
         }
     }
     // TODO comp string
