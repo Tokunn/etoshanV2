@@ -40,13 +40,13 @@
 
 
 enum Pose{ NONE=0, MAJOKO=1, OBAKE=2, KAIDAN=3, NEKO=4, KING=5, BRUNA=6 };
-const char pose_char[][9] = { "$NONE__\n",
-                        "$MAJOKO\n",
-                        "$OBAKE_\n",
-                        "$KAIDAN\n",
-                        "$NEKO__\n",
-                        "$KING__\n",
-                        "$BRUNA_\n"  };
+const char pose_char[][8] = { "NONE__\n",
+                        "MAJOKO\n",
+                        "OBAKE_\n",
+                        "KAIDAN\n",
+                        "NEKO__\n",
+                        "KING__\n",
+                        "BRUNA_\n"  };
 
 
 /******* Xtion Class *******/
