@@ -3,7 +3,7 @@
 
 /*----- initialize() -----*/
 Destination::Destination() {
-    fd = open(SERIAL_PORT, O_RDWR);
+    fd = open(XBEE_SERIAL_PORT, O_RDWR);
     all_count = 8; // TODO count check
 }
 
@@ -30,7 +30,7 @@ void Destination::recive_serial(char* char_destination) {
 
 /*----- comv_destination_char2int() -----*/
 int Destination::comv_destination_char2int(char* char_destination) {
-    // TODO comv string
+    // TODO comp string
     return -5;
 }
 
