@@ -1,4 +1,4 @@
-#include "get_destination.hpp"
+#include "../include/get_destination.hpp"
 
 
 /*----- initialize() -----*/
@@ -7,8 +7,8 @@ Destination::Destination() {
     all_count = 8; // TODO count check
 }
 
-/*----- get_destination_count() -----*/
-int Destination::get_destination_count() {
+/*----- get_position() -----*/
+int Destination::get_position() {
     recive_serial(char_destination);
     return comv_destination_char2int(char_destination);
 }

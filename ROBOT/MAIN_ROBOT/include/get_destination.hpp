@@ -11,8 +11,8 @@
 #include <unistd.h>
 
 
-// Serial Port
-#define SERIAL_PORT "/dev/ttyUSB0"
+// Serial Config
+#include "../include/serial_config.hpp"
 
 
 // Pose number
@@ -24,7 +24,7 @@ class Destination
 {
     public:
         Destination();
-        int get_destination_count();
+        int get_position();
         int get_all_count();
 
     private:
