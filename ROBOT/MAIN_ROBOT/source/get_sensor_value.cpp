@@ -1,11 +1,8 @@
 #include "../include/get_sensor_value.hpp"
 
-#define DEUBG
 
-#ifdef DEUBG
 #include <iostream>
 #include <stdlib.h>
-#endif
 
 
 /*----- initialize() -----*/
