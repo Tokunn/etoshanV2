@@ -2,6 +2,18 @@
 #define HEAD_GET_SENSOR_VALUE
 
 
+// Serial
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <unistd.h>
+
+// Serial Config
+#include "serial_config.hpp"
+
+
 /*===== SensorValue =====*/
 class SensorValue
 {
@@ -10,7 +22,11 @@ class SensorValue
         int get_sensor_value();
 
     private:
-        // TODO Serial connection
+        void recive_serial(int* sensor_value);
+        int check_sensor_value(const int* sensor_value);
+
+        int fd;
+        int sensor_value;
 };
 
 #endif // HEAD_GET_SENSOR_VALUE

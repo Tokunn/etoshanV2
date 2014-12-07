@@ -16,11 +16,7 @@
 
 
 // Serial Config
-#include "../include/serial_config.hpp"
-
-
-// Pose number
-enum Pose{ NONE=0, MAJOKO=1, OBAKE=2, KAIDAN=3, NEKO=4, KING=5, BRUNA=6 };
+#include "serial_config.hpp"
 
 
 /*===== Destination =====*/
@@ -39,7 +35,8 @@ class Destination
 
         int fd;
         int all_count;
-        std::string pose_string[7];
+        int pose_position[6];
+        std::string pose_string[6];
         std::string string_destination;
 };
 
