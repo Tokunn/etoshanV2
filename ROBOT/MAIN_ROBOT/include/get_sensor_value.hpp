@@ -22,8 +22,8 @@ class SensorValue
         int get_sensor_value();
 
     private:
-        void recive_serial(int* sensor_value);
-        int check_sensor_value(const int* sensor_value);
+        void recive_serial(int* p_sensor_value);
+        int check_sensor_value(const int* p_sensor_value);
 
         int fd;
         int sensor_value;

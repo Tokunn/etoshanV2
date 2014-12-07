@@ -4,6 +4,7 @@
 //#include <iostream> // #=# DEBUG #=#
 
 
+
 /*----- initialize() -----*/
 Destination::Destination() {
     std::string temp_pose_string[] = { "$MAJOKO",
