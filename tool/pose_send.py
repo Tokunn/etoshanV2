@@ -18,31 +18,14 @@ def main():
     port = "/dev/ttyUSB0"
     ard = OpenSerial(port)
 
+    cmd = ["$MAJOKO\n", "$OBAKE_\n", "$KAIDAN\n", "$NEKO__\n", "$KING__\n", "$BRUNA_\n"]
+
     #cmd = raw_input("Please type command :")
-    cmd = "$MAJOKO"
-    ard.send_serial_cmd(cmd)
-    cmd = '\n'
-    ard.send_serial_cmd(cmd)
-    cmd = "$NEKO__"
-    ard.send_serial_cmd(cmd)
-    cmd = '\n'
-    ard.send_serial_cmd(cmd)
-    cmd = "$OBAKE_"
-    ard.send_serial_cmd(cmd)
-    cmd = '\n'
-    ard.send_serial_cmd(cmd)
-    cmd = "$KAIDAN"
-    ard.send_serial_cmd(cmd)
-    cmd = '\n'
-    ard.send_serial_cmd(cmd)
-    cmd = "$KING__"
-    ard.send_serial_cmd(cmd)
-    cmd = '\n'
-    ard.send_serial_cmd(cmd)
-    cmd = "$BRUNA_"
-    ard.send_serial_cmd(cmd)
-    cmd = '\n'
-    ard.send_serial_cmd(cmd)
+
+    #ard.send_serial_cmd(cmd[0])
+
+    for i in range(6):
+        ard.send_serial_cmd(cmd[i])
 
 
 if __name__ == '__main__':

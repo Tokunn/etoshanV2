@@ -10,10 +10,15 @@ int main()
     Destination destination;
     SensorValue sensor;
 
-    while (true) {
+    while (true) {      // 1 Round
         int destination_position = destination.get_position();
-        int sensor_value = sensor.get_sensor_value();
-        std::cout << "Destination Position is: " << destination_position << "\t\tSensor Value is: " << sensor_value << '\n';
+        std::cout << "Destination Position is: " << destination_position << '\n';
+
+        while (true) {
+            int sensor_value = sensor.get_sensor_value();
+            std::cout << "\t\tSensor Value is: " << std::hex << sensor_value << '\n';
+        }
+
     }
 
     return EXIT_SUCCESS;
