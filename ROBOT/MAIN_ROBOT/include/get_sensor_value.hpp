@@ -22,11 +22,11 @@ class SensorValue
         int get_sensor_value();
 
     private:
-        void recive_serial(int* p_sensor_value);
-        int check_sensor_value(const int* p_sensor_value);
+        void recive_serial(char* p_sensor_value);
+        int comv_sensor_value(const char* p_sensor_value);
 
         int fd;
-        int sensor_value;
+        char sensor_value[10];
 };
 
 #endif // HEAD_GET_SENSOR_VALUE
