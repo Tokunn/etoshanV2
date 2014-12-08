@@ -7,14 +7,14 @@ class LineTrace
 {
     public:
         LineTrace();
-        void set_sensor_value(int sensor_value);
+        void set_sensor_value(int* p_sensor_value);
         int get_tire_speed_value();
 
     private:
-        int comp_linetrace_lib(int sensor_value);
+        int comp_command(const int* p_sensor_value, const int (*p_command)[2]);
 
         int sensor_value;
-        int linetrace_lib[2][10]; // TODO [2][10] change
+        int command[0x3F+0x1][2]; // [2] = {LEFT, RIGHT}
 };
 
 #endif // HEAD_DO_LINETRACE
