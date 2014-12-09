@@ -1,5 +1,7 @@
 #include "../include/send_tire_speed_value.hpp"
 
+#include <stdio.h>
+
 
 /*----- initialize() -----*/
 TireSpeedvalue::TireSpeedvalue() {
@@ -8,20 +10,22 @@ TireSpeedvalue::TireSpeedvalue() {
 
 
 /*----- send_speed() -----*/
-void send_speed(int speed) {
+void TireSpeedvalue::send_speed(int speed) {
     char speed_char[7];
+    //printf("\tGet int is %06d", speed);
     comv_speed_i2a(speed_char, &speed);
-    send_speed(speed_char);
+    send_serial(speed_char);
 }
 
 
 /*----- comv_speed_i2a() -----*/
-void comv_speed_i2a(char* p_speed_char, int* p_speed) {
-    // TODO i2a
+void TireSpeedvalue::comv_speed_i2a(char* p_speed_char, int* p_speed) {
+    sprintf(p_speed_char, "%06d", *p_speed);
+    //printf("\tSend char is %s\n", p_speed_char);
 }
 
 
 /*----- send_serial() -----*/
-void send_serial(char* p_speed_char) {
-    // TODO Send serial
+void TireSpeedvalue::send_serial(char* p_speed_char) {
+    write(fd, p_speed_char, 6);
 }

@@ -6,6 +6,7 @@
 #include "../include/get_destination.hpp"
 #include "../include/get_sensor_value.hpp"
 #include "../include/do_linetrace.hpp"
+#include "../include/send_tire_speed_value.hpp"
 
 
 int main()
@@ -13,6 +14,7 @@ int main()
     Destination destination;
     SensorValue sensor;
     LineTrace command_lib;
+    TireSpeedvalue motor;
 
     while (true) {      // 1 Round
         //bool onlineflag = false;
@@ -33,8 +35,8 @@ int main()
 
             //std::cout << "\tSensor Val: " << std::hex << val << '\n';
             std::cout << "\tSensor Val: " << std::bitset<6>(val);
-            std::cout << "\tTire Speed: " << std::setw(6) << std::setfill('0')
-                << command << std::endl;
+            std::cout << "\tTire Speed: " << std::setw(6) << std::setfill('0') << command << std::endl;
+            motor.send_speed(command);
         }
 
     }
