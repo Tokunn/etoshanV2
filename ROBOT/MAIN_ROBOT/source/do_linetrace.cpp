@@ -3,6 +3,9 @@
 
 /*----- initialize() -----*/
 LineTrace::LineTrace() {
+    // Master Speed
+    master_speed = 1;
+
     /* command init */
     for (int i = 0; i <= 0x3F; i++) {
         command[i][0] = 0;
@@ -71,9 +74,9 @@ int LineTrace::get_tire_speed_value() {
 int LineTrace::comp_command(const int* p_sensor_value, const int (*p_command)[2]) {
     int return_command = 0;
 
-    return_command += p_command[*p_sensor_value][0] * 1000;
+    return_command += p_command[*p_sensor_value][0] * master_speed * 1000;
     // If command[][0] = 11, return_command = 011000
-    return_command += p_command[*p_sensor_value][1];
+    return_command += p_command[*p_sensor_value][1] * master_speed;
     // If command[][1] = 11, return_command = 011011
 
     if (p_command[*p_sensor_value][0] < 0) {

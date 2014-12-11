@@ -14,6 +14,7 @@ class LineTrace
         int comp_command(const int* p_sensor_value, const int (*p_command)[2]);
 
         int sensor_value;
+        int master_speed;
         int command[0x3F+0x1][2]; // [2] = {LEFT, RIGHT}
 };
 
