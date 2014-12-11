@@ -40,13 +40,13 @@
 
 
 enum Pose{ NONE=0, MAJOKO=1, OBAKE=2, KAIDAN=3, NEKO=4, KING=5, BRUNA=6 };
-const char pose_char[][8] = { "$NONE__",
-                        "$MAJOKO",
-                        "$OBAKE_",
-                        "$KAIDAN",
-                        "$NEKO__",
-                        "$KING__",
-                        "$BRUNA_"  };
+const char pose_char[][9] = { "$NONE__\n",
+                        "$MAJOKO\n",
+                        "$OBAKE_\n",
+                        "$KAIDAN\n",
+                        "$NEKO__\n",
+                        "$KING__\n",
+                        "$BRUNA_\n"  };
 
 
 /******* Xtion Class *******/
@@ -222,7 +222,7 @@ void Xtion::sendSerial( Pose pose )
     int fd;
     int return_write;
     fd = open(SERIAL_PORT, O_RDWR);
-    return_write = write(fd, pose_char[pose], 7);
+    return_write = write(fd, pose_char[pose], 8);
     if (return_write < 0) {
         std::cout << "Send serial Error\n";
     }
