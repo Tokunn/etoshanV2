@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 #include <stdlib.h>
 #include <bitset>
 #include <iomanip>
@@ -23,7 +24,8 @@ int main()
         int all_count = destination.get_all_count();
         int stop_val = 0x00;
 
-        std::cout << "Stop Line: " << stopline << '\n';
+        //std::cout << "Stop Line: " << stopline << '\n';
+        printf("Stop Line: %d\n", stopline);
 
         while (true) {
             int val = sensor.get_sensor_value();
@@ -31,24 +33,29 @@ int main()
 
             if (val != 0x3F) {      // 0x3F = 0b111111
                 onlineflag = false;
-                std::cout << "\tONLine Flag = false";
+                //std::cout << "\tONLine Flag = false";
+                printf("\tON Line Flag = false");
             }
             else if (onlineflag == false) {
                 count++;
                 onlineflag = true;
-                std::cout << "\tONLine Flag = true";
+                //std::cout << "\tONLine Flag = true";
+                printf("\tON Line Flag = true");
             }
 
             if ((val == 0x3F) && ((count == stopline) || (count == all_count))) {
                 command_lib.set_sensor_value(&stop_val);
-                std::cout << "[!!]STOP\n";
+                //std::cout << "[!!]STOP\n";
+                printf("[!!]STOP\n");
             }
 
             int command = command_lib.get_tire_speed_value();
 
-            std::cout << "\tCount: " << count;
+            printf("\tCount: %d", count);
             std::cout << "\tSensor Val: " << std::bitset<6>(val);
-            std::cout << "\tTire Speed: " << std::setw(6) << std::setfill('0') << command << std::endl;
+            printf("\tTire Speed: %06d\n", command);
+            //std::cout << "\tTire Speed: " << std::setw(6)
+            //<< std::setfill('0') << command << std::endl;
 
             motor.send_speed(command);
             if (count == all_count) {
