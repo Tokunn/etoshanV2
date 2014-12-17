@@ -27,5 +27,6 @@ void TireSpeedvalue::comv_speed_i2a(char* p_speed_char, int* p_speed) {
 
 /*----- send_serial() -----*/
 void TireSpeedvalue::send_serial(char* p_speed_char) {
-    write(fd, p_speed_char, 6);
+    p_speed_char[6] = '\n';
+    write(fd, p_speed_char, 7);
 }

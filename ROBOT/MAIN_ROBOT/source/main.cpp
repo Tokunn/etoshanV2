@@ -57,7 +57,7 @@ int main()
             //std::cout << "\tTire Speed: " << std::setw(6)
             //<< std::setfill('0') << command << std::endl;
 
-            motor.send_speed(command);
+            // motor.send_speed(command);
             if (count == all_count) {
                 break;
             }
