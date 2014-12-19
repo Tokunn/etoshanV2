@@ -7,8 +7,8 @@ endif
 CXX		 = $(CROSS_PREFIX)g++
 CXXFLAGS = -Wall -Wextra -O2 -g -MMD -MP
 LDFLAGS	 =
-LIBS	 =
-INCLUDE	 = -I../include
+LIBS	 = -L /usr/local/lib -l wiringPi
+INCLUDE	 = -I../include /usr/local/include
 BIN_DIR  = ../bin/
 TARGET 	 = $(BIN_DIR)$(shell basename `readlink -f ..`)
 OBJDIR	 = ./obj

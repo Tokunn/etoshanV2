@@ -22,10 +22,10 @@ def main():
 
     #cmd = raw_input("Please type command :")
 
-    #ard.send_serial_cmd(cmd[0])
+    ard.send_serial_cmd(cmd[0])
 
-    for i in range(6):
-        ard.send_serial_cmd(cmd[i])
+    #for i in range(6):
+        #ard.send_serial_cmd(cmd[i])
 
 
 if __name__ == '__main__':

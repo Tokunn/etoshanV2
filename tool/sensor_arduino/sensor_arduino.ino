@@ -12,6 +12,6 @@ void loop() {
     //i = 0x0;
     sprintf(str, "%x", command[i]+0x10);
     Serial.println(str);
-    delay(50);
+    delay(500);
   }
 }

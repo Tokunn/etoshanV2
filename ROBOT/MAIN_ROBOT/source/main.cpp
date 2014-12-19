@@ -7,7 +7,8 @@
 #include "../include/get_destination.hpp"
 #include "../include/get_sensor_value.hpp"
 #include "../include/do_linetrace.hpp"
-#include "../include/send_tire_speed_value.hpp"
+#include "../include/write_tire_speed_value.hpp"
+//#include "../include/send_tire_speed_value.hpp"
 
 
 int main()
@@ -15,7 +16,8 @@ int main()
     Destination destination;
     SensorValue sensor;
     LineTrace command_lib;
-    TireSpeedvalue motor;
+    TireSpeedvalueGPIO motor;
+    //TireSpeedvalue motor;
 
     while (true) {      // 1 Round
         bool onlineflag = false;
@@ -57,7 +59,8 @@ int main()
             //std::cout << "\tTire Speed: " << std::setw(6)
             //<< std::setfill('0') << command << std::endl;
 
-            // motor.send_speed(command);
+            //motor.send_speed(command);
+            motor.write_speed(command);
             if (count == all_count) {
                 break;
             }
