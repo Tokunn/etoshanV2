@@ -63,9 +63,9 @@ void TireSpeedvalueGPIO::write_gpio(char* p_speed_char) {
 
     // RIGT Speed
     if (p_speed_char[5] == '0') {
-        digitalWrite(LEFT_SPEED, 0);
+        digitalWrite(RIGT_SPEED, 0);
     }
     else {
-        digitalWrite(LEFT_SPEED, 1);
+        digitalWrite(RIGT_SPEED, 1);
     }
 }
