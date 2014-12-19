@@ -68,4 +68,15 @@ void TireSpeedvalueGPIO::write_gpio(char* p_speed_char) {
     else {
         digitalWrite(RIGT_SPEED, 1);
     }
+
+    // Brake
+    if (p_speed_char[2] == '0' && p_speed_char[5]) {
+        digitalWrite(LEFT_NORMAL_ROTATION, 1);
+        digitalWrite(LEFT_REVERS_ROTATION, 1);
+        digitalWrite(LEFT_SPEED,           1);
+
+        digitalWrite(RIGT_NORMAL_ROTATION, 1);
+        digitalWrite(RIGT_REVERS_ROTATION, 1);
+        digitalWrite(RIGT_SPEED,           1);
+    }
 }

@@ -440,10 +440,10 @@ Pose Xtion::checkPose( const nite::Skeleton& skeelton )
     const nite::Point3f& joint_left_hand = ( skeelton.getJoint( nite::JOINT_LEFT_HAND ) ).getPosition();
     const nite::Point3f& joint_rigt_hand = ( skeelton.getJoint( nite::JOINT_RIGHT_HAND ) ).getPosition();
 
-    /*'' Check NEKO ''*/
+    /*'' Check KING ''*/
     if ( joint_head.y < joint_left_hand.y && joint_rigt_hand.y < joint_torso.y ) {
-        checkPose = NEKO;
-        direcImage = cv::imread( "Images/NEKO.png" );
+        checkPose = KING;
+        direcImage = cv::imread( "Images/KING.png" );
     }
     /*'' Check MAJOKO ''*/
     if ( joint_head.y < joint_rigt_hand.y && joint_left_hand.y < joint_torso.y ) {
